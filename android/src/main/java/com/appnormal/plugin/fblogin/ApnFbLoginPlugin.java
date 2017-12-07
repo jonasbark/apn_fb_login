@@ -133,8 +133,11 @@ public class ApnFbLoginPlugin implements MethodCallHandler, PluginRegistry.Activ
         if (mCallbackManager != null) {
           return mCallbackManager.onActivityResult(requestCode, resultCode, data);
         }
+        else if (activity != null) {
+          return activity.onActivityResult(requestCode, resultCode, data);
+        }
         else {
-          return super.onActivityResult(requestCode, resultCode, data);
+          return false;
         }
     }
 }
