@@ -14,7 +14,7 @@ class ApnFbLogin {
 
   static Future<FacebookOAuthToken> login(FacebookConnect facebookConnect) {
     _facebookConnect = facebookConnect;
-    Map<String, dynamic> arguments = _facebookConnect.toMap();
+    Map arguments = _facebookConnect.toMap();
     return _channel.invokeMethod("login", arguments).then((data) {
       _facebookOAuthToken = new FacebookOAuthToken.fromMap(data);
       return _facebookOAuthToken;
@@ -22,7 +22,7 @@ class ApnFbLogin {
   }
 
   static Future<FacebookUser> me() {
-    Map<String, dynamic> arguments = _facebookConnect.toMap()
+    Map arguments = _facebookConnect.toMap()
       ..putIfAbsent("accessToken", () => _facebookOAuthToken.accessToken);
 
     return _channel.invokeMethod("graph/me", arguments)
@@ -36,7 +36,7 @@ class FacebookUser {
   String name;
   String email;
 
-  FacebookUser.fromMap(Map<String, dynamic> data)
+  FacebookUser.fromMap(Map data)
       : id = data["id"],
         name = data["name"],
         email = data["email"];
@@ -56,7 +56,7 @@ class FacebookOAuthToken {
   String userId;
   int expiresIn;
 
-  FacebookOAuthToken.fromMap(Map<String, dynamic> data)
+  FacebookOAuthToken.fromMap(Map data)
       : accessToken = data["accessToken"],
         acceptedPermissions = "${data["acceptedPermissions"]}".split(","),
         deniedTermissions = "${data["deniedTermissions"]}".split(","),
