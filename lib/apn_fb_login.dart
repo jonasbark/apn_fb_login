@@ -15,7 +15,7 @@ class ApnFbLogin {
   static Future<FacebookOAuthToken> login(FacebookConnect facebookConnect) {
     _facebookConnect = facebookConnect;
     Map<String, dynamic> arguments = _facebookConnect.toMap();
-    return _channel.invokeMethod("login", arguments).then((Map<String, String> data) {
+    return _channel.invokeMethod("login", arguments).then((data) {
       _facebookOAuthToken = new FacebookOAuthToken.fromMap(data);
       return _facebookOAuthToken;
     });
@@ -26,7 +26,7 @@ class ApnFbLogin {
       ..putIfAbsent("accessToken", () => _facebookOAuthToken.accessToken);
 
     return _channel.invokeMethod("graph/me", arguments)
-        .then((Map<String, String> data) => new FacebookUser.fromMap(data));
+        .then((data) => new FacebookUser.fromMap(data));
   }
 }
 
